@@ -20,13 +20,15 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    items = relationship('Item', order_by='Item.id', backref='category')
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'name': self.name,
             'id': self.id,
+            'name': self.name,
+            'Item': [i.serialize for i in self.items]
         }
 
 
@@ -37,7 +39,6 @@ class Item(Base):
     title = Column(String(80), nullable=False)
     description = Column(String(500))
     cat_id = Column(Integer, ForeignKey('category.id'))
-    category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
@@ -45,9 +46,10 @@ class Item(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'title': self.title,
-            'description': self.description,
+            'cat_id': self.cat_id,
             'id': self.id,
+            'title': self.title,
+            'description': self.description
         }
 
 

@@ -14,10 +14,10 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-@app.route('/catalog/JSON')
+@app.route('/catalog.json')
 def categoriesJSON():
     categories = session.query(Category).all()
-    return jsonify(categories=[r.serialize for r in categories])
+    return jsonify(category=[r.serialize for r in categories])
 
 
 @app.route('/')

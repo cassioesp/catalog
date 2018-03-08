@@ -30,32 +30,32 @@ category1 = Category(name="Soccer")
 session.add(category1)
 session.commit()
 
-item1 = Item(user_id=1, title="Two Shinguards", description="with garlic and parmesan",
+item1 = Item(user_id=1, title="Two Shinguards", description="Test description 1",
              category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(user_id=1, title="Jersey",
-             description="Juicy grilled chicken patty with tomato mayo and lettuce",
+             description="Test description 2",
              category=category1)
 
 session.add(item2)
 session.commit()
 
-item3 = Item(user_id=1, title="Soccer Cleats", description="fresh baked and served with ice cream",
+item3 = Item(user_id=1, title="Soccer Cleats", description="Test description 3",
              category=category1)
 
 session.add(item3)
 session.commit()
 
-item4 = Item(user_id=1, title="Shinguards", description="Made with grade A beef",
+item4 = Item(user_id=1, title="Shinguards", description="Test description 4",
              category=category1)
 
 session.add(item4)
 session.commit()
 
-item5 = Item(user_id=1, title="Soccer Socks", description="16oz of refreshing goodness",
+item5 = Item(user_id=1, title="Soccer Socks", description="Test description 6",
              category=category1)
 
 session.add(item4)
@@ -68,14 +68,14 @@ session.add(category2)
 session.commit()
 
 item1 = Item(user_id=1, title="Snowboard",
-             description="with your choice of noodles vegetables and sauces",
+             description="Test description 7",
              category=category2)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(user_id=1, title="Goggles",
-             description=" a famous duck dish from Beijing[1] that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook",
+             description="Test description 8",
              category=category2)
 
 session.add(item2)
