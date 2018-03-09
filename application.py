@@ -23,7 +23,8 @@ def categoriesJSON():
 @app.route('/')
 @app.route('/catalog/')
 def showCategories():
-    return render_template('catalog.html')
+    categories = session.query(Category)
+    return render_template('catalog.html', categories=categories)
 
 
 @app.route('/catalog/<string:category>/')
