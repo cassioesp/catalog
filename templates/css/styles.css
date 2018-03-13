@@ -1,8 +1,9 @@
-.vr
-{
-  display:inline;
-  height:100%;
-  width:1px;
-  border:1px inset;
-  margin:5px
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
 }

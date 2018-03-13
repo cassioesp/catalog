@@ -180,16 +180,17 @@ def showItemDescription(category, item_title):
 
 @app.route('/catalog/item/new', methods=['GET', 'POST'])
 def newItem():
+    categories = session.query(Category)
+    items = session.query(Item)
     if request.method == 'GET':
-        return render_template('newItem.html')
+        return render_template('newItem.html', categories=categories)
     if request.method == 'POST':
         newItem = Item(user_id=1, title=request.form['text-input-title'],
                        description=request.form['text-input-description'],
                        cat_id=request.form['categorySelect'])
         session.add(newItem)
         session.commit()
-        categories = session.query(Category)
-        items = session.query(Item)
+
         return render_template('catalog.html', categories=categories,
                                items=items)
 

@@ -4,12 +4,59 @@
     {% block content %}
     {% include 'header.html' %}
     <body>
-        <h1>{{item.title}}</h1>
-        <article>{{item.description}}</article>
-        {%if 'username' in session %}
-        <a href = "{{url_for('editItem', item_title = item.title)}}">Edit</a>  | 
-        <a href = "{{url_for('deleteItem', item_title = item.title)}}">Delete</a>
-        {% endif %}
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title">{{item.title}}</h3>
+                            <h4>$24.99</h4>
+                            <p class="card-text">{{item.description}}</p>
+                            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                            4.0 stars
+                        </div>
+                        {%if 'username' in session %}
+                        <a href = "{{url_for('editItem', item_title = item.title)}}">Edit</a>
+                        <a href = "{{url_for('deleteItem', item_title = item.title)}}">Delete</a>
+                        {% endif %}
+                    </div>
+                    <!-- /.card -->
+
+                    <div class="card card-outline-secondary my-4">
+                        <div class="card-header">
+                            Product Reviews
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                            <hr>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                            <hr>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                            <hr>
+                            <a href="#" class="btn btn-success">Leave a Review</a>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col-lg-9 -->
+
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+        <!-- Footer -->
+        {% include 'footer.html' %}
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         {% endblock %}
     </body>
+
 </html>

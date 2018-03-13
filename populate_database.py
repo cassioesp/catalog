@@ -31,35 +31,40 @@ session.add(category1)
 session.commit()
 
 item1 = Item(user_id=1, title="Two Shinguards",
-             description="Test description 1",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
              category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(user_id=1, title="Jersey",
-             description="Test description 2",
+             description="Lorem ipsum dolor sit amet, "
+                         "consectetur adipisicing elit.",
              category=category1)
 
 session.add(item2)
 session.commit()
 
 item3 = Item(user_id=1, title="Soccer Cleats",
-             description="Test description 3",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
              category=category1)
 
 session.add(item3)
 session.commit()
 
 item4 = Item(user_id=1, title="Shinguards",
-             description="Test description 4",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
              category=category1)
 
 session.add(item4)
 session.commit()
 
 item5 = Item(user_id=1, title="Soccer Socks",
-             description="Test description 6",
+             description="Lorem ipsum dolor sit amet, "
+                         "consectetur adipisicing elit.",
              category=category1)
 
 session.add(item4)
