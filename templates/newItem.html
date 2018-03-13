@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Item</title>
-</head>
-<body>
-    This page is for making a new item.
-</body>
+    {% extends "base.html" %}
+    {% block content %}
+    {% include 'header.html' %}
+    <body>
+        <h1>New Item</h1>
+        <form method='post' class="form-group">
+            <label for="text-input-title" class="col-form-label">Title</label>
+            <div class="col-10">
+                <input class="form-control col-4" type="text" name="text-input-title">
+            </div>
+            <label for="text-input-description" class="col-form-label">Description</label>
+            <div class="col-10">
+                <input class="form-control col-4" type="text" name="text-input-description">
+            </div>
+            <label for="categorySelect">Category</label>
+            <div class="col-10">
+                <select class="form-control col-4" name="categorySelect">
+                    <option value="1">Soccer</option>
+                    <option value="2">Snowboarding</option>
+                </select>
+            </div>
+            <br/>
+            <input class="btn btn-primary" type='submit' value='Submit'>
+            <a class="btn btn-secondary" href = "{{url_for('showCategories')}}">Cancel</a>
+        </form>
+    </body>
+    {% endblock %}
 </html>

@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/styles.css">
-        <title>Catalog</title>
-    </head>
+    {% extends "base.html" %}
+    {% block content %}
+    {% include 'header.html' %}
     <body>
-        {% include "header.html" %}
-        This page will show all my categories.
-        <br>
-        {% for category in categories %}
-        {{category.name}}
-        <br>
-        {% endfor %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Categories</h1>
+                    <br>
+                    {% for category in categories %}
+                    <a href = "{{url_for('showItems', category = category.name)}}">
+                        {{category.name}}
+                        <br>
+                        {% endfor %}
+                    </a>
+                </div>
+                <div style="border-left:1px solid #919191;height:250px"></div>
+                <div class="col">
+                    {%if 'username' in session %}
+                    <a href = "{{url_for('newItem')}}">Add Item</a>
+                    {% endif %}
+                    <h1>Latest Items</h1>
+                    <br>
+                    {% for item in items %}
+                    <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}"/>
+                    {{item.title}} <i>({{item.item_category.name}})</i>
+                    <br>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        {% endblock %}
     </body>
 </html>
