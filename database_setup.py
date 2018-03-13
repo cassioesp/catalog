@@ -39,7 +39,9 @@ class Item(Base):
     title = Column(String(80), nullable=False)
     description = Column(String(500))
     cat_id = Column(Integer, ForeignKey('category.id'))
-    item_category = relationship('Category', backref='item_category', foreign_keys=[cat_id])
+    item_category = relationship('Category',
+                                 backref='item_category',
+                                 foreign_keys=[cat_id])
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('User', backref='item_user', foreign_keys=[user_id])
 

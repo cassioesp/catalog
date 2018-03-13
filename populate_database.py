@@ -20,7 +20,8 @@ session = DBSession()
 
 # Create dummy user
 User1 = User(name="Cassio Espindola", email="cassioafonso@gmail.com",
-             picture='https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png')
+             picture='https://pbs.twimg.com/profile_images/2671170543/'
+                     '18debd694829ed78203a5a36dd364160_400x400.png')
 session.add(User1)
 session.commit()
 
@@ -29,7 +30,8 @@ category1 = Category(name="Soccer")
 session.add(category1)
 session.commit()
 
-item1 = Item(user_id=1, title="Two Shinguards", description="Test description 1",
+item1 = Item(user_id=1, title="Two Shinguards",
+             description="Test description 1",
              category=category1)
 
 session.add(item1)
@@ -42,19 +44,22 @@ item2 = Item(user_id=1, title="Jersey",
 session.add(item2)
 session.commit()
 
-item3 = Item(user_id=1, title="Soccer Cleats", description="Test description 3",
+item3 = Item(user_id=1, title="Soccer Cleats",
+             description="Test description 3",
              category=category1)
 
 session.add(item3)
 session.commit()
 
-item4 = Item(user_id=1, title="Shinguards", description="Test description 4",
+item4 = Item(user_id=1, title="Shinguards",
+             description="Test description 4",
              category=category1)
 
 session.add(item4)
 session.commit()
 
-item5 = Item(user_id=1, title="Soccer Socks", description="Test description 6",
+item5 = Item(user_id=1, title="Soccer Socks",
+             description="Test description 6",
              category=category1)
 
 session.add(item4)
