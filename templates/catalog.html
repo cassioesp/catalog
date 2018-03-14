@@ -1,65 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-    {% extends "base.html" %}
-    {% block content %}
-    {% include 'header.html' %}
-    <body>
-
-        <!-- Page Content -->
-        <div class="container">
-
-            <div class="row">
-
-                <div class="col-lg-3">
-
-                    <h1 class="my-4">Categories</h1>
-                    <div class="list-group">
-                        {% for category in categories %}
-                        <a href="{{url_for('showItems', category = category.name)}}" class="list-group-item">{{category.name}}</a>
-                        {% endfor %}
-                    </div>
-
+{% extends "base.html" %}
+{% block content %}
+{% include 'header.html' %}
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="my-4">Categories</h1>
+                <div class="list-group">
+                    {% for category in categories %}
+                    <a href="{{url_for('showItems', category = category.name)}}" class="list-group-item">{{category.name}}</a>
+                    {% endfor %}
                 </div>
-                <!-- /.col-lg-3 -->
-
-                <div class="col-lg-9">
-                    <h1>Latest Items</h1>
-                    {%if 'username' in session %}
-                    <a href = "{{url_for('newItem')}}">Add Item</a>
-                    {% endif %}
-                    <div class="row">
-                        {% for item in items %}
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}"/>
-                                        {{item.title}} <i>({{item.item_category.name}})</i>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                    <p class="card-text">{{item.description}}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-9">
+                <h1>Latest Items</h1>
+                {%if 'username' in session %}
+                <a href = "{{url_for('newItem')}}">Add Item</a>
+                {% endif %}
+                <div class="row">
+                    {% for item in items | reverse %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}"/>
+                                    {{item.title}} <i>({{item.item_category.name}})</i>
+                                </h4>
+                                <p class="card-text">{{item.description}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
-                    <!-- /.row -->
+                    {% endfor %}
                 </div>
-                <!-- /.col-lg-9 -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
+            <!-- /.col-lg-9 -->
         </div>
-        <!-- /.container -->
-        
-        <!-- Footer -->
-        {% include 'footer.html' %}
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        {% endblock %}
-    </body>
-</html>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    {% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+{% endblock %}

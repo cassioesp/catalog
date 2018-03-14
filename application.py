@@ -3,7 +3,7 @@ import string
 
 import httplib2 as httplib2
 from flask import Flask, jsonify, render_template, \
-    request, make_response, json, redirect, url_for
+    request, make_response, json, redirect, url_for, flash
 from flask import session as login_session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -85,7 +85,7 @@ def fbconnect():
     output += ' " style = "width: 300px; height: 300px;' \
               'border-radius: 150px;-webkit-border-radius: 150px;' \
               '-moz-border-radius: 150px;"> '
-
+    flash("you are now logged in as %s" % login_session['username'])
     return output
 
 
@@ -130,6 +130,7 @@ def disconnect():
         del login_session['picture']
         del login_session['user_id']
         del login_session['provider']
+        flash("You have successfully been logged out.")
         return redirect(url_for('showCategories'))
     else:
         return redirect(url_for('showCategories'))
@@ -180,6 +181,8 @@ def showItemDescription(category, item_title):
 
 @app.route('/catalog/item/new', methods=['GET', 'POST'])
 def newItem():
+    if 'username' not in login_session:
+        return redirect('/login')
     categories = session.query(Category)
     items = session.query(Item)
     if request.method == 'GET':
@@ -190,13 +193,15 @@ def newItem():
                        cat_id=request.form['categorySelect'])
         session.add(newItem)
         session.commit()
-
+        flash('New Item %s Successfully Created' % newItem.title)
         return render_template('catalog.html', categories=categories,
                                items=items)
 
 
 @app.route('/catalog/<string:item_title>/edit', methods=['GET', 'POST'])
 def editItem(item_title):
+    if 'username' not in login_session:
+        return redirect('/login')
     editedItem = session.query(Item).filter_by(title=item_title).one()
     if request.method == 'GET':
         return render_template('editItem.html', item=editedItem)
@@ -213,11 +218,14 @@ def editItem(item_title):
             editedItem.cat_id = category_for_item.id
         session.add(editedItem)
         session.commit()
+        flash('Item Successfully Edited %s' % editedItem.title)
         return render_template('itemDescription.html', item=editedItem)
 
 
 @app.route('/catalog/<string:item_title>/delete', methods=['GET', 'POST'])
 def deleteItem(item_title):
+    if 'username' not in login_session:
+        return redirect('/login')
     itemToDelete = session.query(Item).filter_by(title=item_title).one()
     if request.method == 'GET':
         return render_template('deleteItem.html', item=itemToDelete)
@@ -226,6 +234,7 @@ def deleteItem(item_title):
         session.commit()
         categories = session.query(Category)
         items = session.query(Item)
+        flash('%s Successfully Deleted' % itemToDelete.title)
         return render_template('catalog.html', categories=categories,
                                items=items)
 

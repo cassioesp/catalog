@@ -1,0 +1,19 @@
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}
+
+.flash {
+    background-color: #98FB98;
+    width:100%;
+    text-decoration: none;
+    width: auto;
+    display: block;
+}
+
+.flash li {
+    list-style-type: none;
+    text-align: center;
+
+}

@@ -76,14 +76,16 @@ session.add(category2)
 session.commit()
 
 item1 = Item(user_id=1, title="Snowboard",
-             description="Test description 7",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
              category=category2)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(user_id=1, title="Goggles",
-             description="Test description 8",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
              category=category2)
 
 session.add(item2)
@@ -109,7 +111,8 @@ category7 = Category(name="Hockey")
 session.add(category7)
 
 item1 = Item(user_id=1, title="Stick",
-             description="Test description 12",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit."  ,
              category=category7)
 session.add(item1)
 session.commit()

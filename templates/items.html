@@ -7,7 +7,6 @@
 
         <!-- Page Content -->
         <div class="container">
-
             <div class="row">
 
                 <div class="col-lg-3">
@@ -28,7 +27,7 @@
                     <a href = "{{url_for('newItem')}}">Add Item</a>
                     {% endif %}
                     <div class="row">
-                        {% for item in items %}
+                        {% for item in items | reverse %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
@@ -36,9 +35,8 @@
                                         <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}"/>
                                         {{item.title}}
                                         <br>
-                                        
+
                                     </h4>
-                                    <h5>$24.99</h5>
                                     <p class="card-text">{{item.description}}</p>
                                 </div>
                                 <div class="card-footer">
