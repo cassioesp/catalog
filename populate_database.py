@@ -99,9 +99,30 @@ category4 = Category(name="Baseball")
 session.add(category4)
 session.commit()
 
+item1 = Item(user_id=1, title="Bat",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
+             category=category4)
+
+session.add(item1)
+session.commit()
+
 category5 = Category(name="Frisbee")
 session.add(category5)
 session.commit()
+
+item1 = Item(user_id=1, title="Frisbee",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
+             category=category5)
+
+session.add(item1)
+session.commit()
+
+item2 = Item(user_id=2, title="Goggles",
+             description="Lorem ipsum dolor sit amet,"
+                         " consectetur adipisicing elit.",
+             category=category2)
 
 category6 = Category(name="Rock Climbing")
 session.add(category6)
@@ -112,7 +133,7 @@ session.add(category7)
 
 item1 = Item(user_id=1, title="Stick",
              description="Lorem ipsum dolor sit amet,"
-                         " consectetur adipisicing elit."  ,
+                         " consectetur adipisicing elit.",
              category=category7)
 session.add(item1)
 session.commit()

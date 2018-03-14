@@ -28,11 +28,18 @@
                     <br/>
                     {% endif %}
                     <div class="row">
+                        {%if items|length == 0 %}
+                        <div>
+                            <br><br><br>
+                            <center><h3>Sorry, no items in this category! :(</h3></center>
+                        </div>
+                        {% endif %}
                         {% for item in items | reverse %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h4 class="card-title">
+
                                         <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}">
                                             {{item.title}}</a>
                                         <br>

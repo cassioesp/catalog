@@ -4,6 +4,11 @@
     }
 }
 
+img {
+    border-radius: 50%;
+    
+}
+
 .flash {
     background-color: #98FB98;
     width:100%;

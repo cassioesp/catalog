@@ -162,7 +162,6 @@ def showCategories():
     return render_template('catalog.html', categories=categories,
                            items=items)
 
-
 @app.route('/catalog/<string:category>/')
 @app.route('/catalog/<string:category>/items/')
 def showItems(category):
@@ -247,6 +246,11 @@ def deleteItem(item_title):
         flash('%s Successfully Deleted' % itemToDelete.title)
         return render_template('catalog.html', categories=categories,
                                items=items)
+
+
+@app.route('/contact')
+def showContact():
+    return render_template('contact.html')
 
 
 if __name__ == '__main__':
