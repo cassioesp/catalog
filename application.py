@@ -188,7 +188,7 @@ def newItem():
     if request.method == 'GET':
         return render_template('newItem.html', categories=categories)
     if request.method == 'POST':
-        newItem = Item(user_id=1, title=request.form['text-input-title'],
+        newItem = Item(user_id=login_session['user_id'], title=request.form['text-input-title'],
                        description=request.form['text-input-description'],
                        cat_id=request.form['categorySelect'])
         session.add(newItem)
@@ -202,8 +202,14 @@ def newItem():
 def editItem(item_title):
     if 'username' not in login_session:
         return redirect('/login')
+    categories = session.query(Category)
+    items = session.query(Item)
     editedItem = session.query(Item).filter_by(title=item_title).one()
     if request.method == 'GET':
+        if editedItem.user_id != login_session['user_id']:
+            flash('You are not authorized to edit this item.')
+            return render_template('catalog.html', item=editedItem,
+                                   categories=categories, items=items)
         return render_template('editItem.html', item=editedItem)
     if request.method == 'POST':
         if request.form['text-input-title']:
@@ -226,14 +232,18 @@ def editItem(item_title):
 def deleteItem(item_title):
     if 'username' not in login_session:
         return redirect('/login')
+    categories = session.query(Category)
+    items = session.query(Item)
     itemToDelete = session.query(Item).filter_by(title=item_title).one()
     if request.method == 'GET':
+        if itemToDelete.user_id != login_session['user_id']:
+            flash('You are not authorized to delete this item.')
+            return render_template('catalog.html', item=itemToDelete,
+                                   categories=categories, items=items)
         return render_template('deleteItem.html', item=itemToDelete)
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
-        categories = session.query(Category)
-        items = session.query(Item)
         flash('%s Successfully Deleted' % itemToDelete.title)
         return render_template('catalog.html', categories=categories,
                                items=items)

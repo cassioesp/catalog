@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    {% extends "base.html" %}
-    {% block content %}
-    {% include 'header.html' %}
-    <body>
+{% extends "base.html" %}
+{% block content %}
+{% include 'header.html' %}
+<body>
+    <div class="container">
         <h1>New Item</h1>
         <form method='post' class="form-group">
             <label for="text-input-title" class="col-form-label">Title</label>
@@ -13,10 +12,6 @@
             <label for="text-input-description" class="col-form-label">Description</label>
             <div class="col-10">
                 <input class="form-control col-4" type="text" name="text-input-description">
-            </div>
-            <label for="text-number-price" class="col-form-label">Price</label>
-            <div class="col-10">
-                <input class="form-control col-4" min="0" type="number" id="text-number-price" step=".01">
             </div>
             <label for="categorySelect">Category</label>
             <div class="col-10">
@@ -30,6 +25,6 @@
             <input class="btn btn-primary" type='submit' value='Submit'>
             <a class="btn btn-secondary" href = "{{url_for('showCategories')}}">Cancel</a>
         </form>
-    </body>
-    {% endblock %}
-</html>
+    </div>
+</body>
+{% endblock %}

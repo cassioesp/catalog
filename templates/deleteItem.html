@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    {% extends "base.html" %}
-    {% block content %}
-    {% include 'header.html' %}
-    <body>
+{% extends "base.html" %}
+{% block content %}
+{% include 'header.html' %}
+<body>
+    <div class="container">
         <h1>Delete Item</h1>
         Are you sure you want to delete <b>{{item.title}}</b>?
         <br/>
@@ -12,6 +11,6 @@
             <input class="btn btn-danger" type='submit' value='Delete'>
             <a class="btn btn-secondary" href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}">Cancel</a>
         </form>
-    </body>
-    {% endblock %}
-</html>
+    </div>
+</body>
+{% endblock %}

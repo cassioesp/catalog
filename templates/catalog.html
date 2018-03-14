@@ -17,7 +17,10 @@
             <div class="col-lg-9">
                 <h1>Latest Items</h1>
                 {%if 'username' in session %}
-                <a href = "{{url_for('newItem')}}">Add Item</a>
+                <div>
+                    <a class="btn btn-success" href = "{{url_for('newItem')}}">Add Item</a>
+                </div>
+                <br/>
                 {% endif %}
                 <div class="row">
                     {% for item in items | reverse %}
@@ -25,8 +28,8 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}"/>
-                                    {{item.title}} <i>({{item.item_category.name}})</i>
+                                    <a href = "{{url_for('showItemDescription', category = item.item_category.name, item_title = item.title)}}">
+                                        {{item.title}} <i>({{item.item_category.name}})</i></a>
                                 </h4>
                                 <p class="card-text">{{item.description}}</p>
                             </div>

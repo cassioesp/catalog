@@ -16,8 +16,13 @@
                             4.0 stars
                         </div>
                         {%if 'username' in session %}
-                        <a href = "{{url_for('editItem', item_title = item.title)}}">Edit</a>
-                        <a href = "{{url_for('deleteItem', item_title = item.title)}}">Delete</a>
+                        <div>
+                            <center>
+                                <a href = "{{url_for('editItem', item_title = item.title)}}" class="btn btn-warning">Edit</a>
+                                <a href = "{{url_for('deleteItem', item_title = item.title)}}" class="btn btn-danger">Delete</a>
+                            </center>
+                        </div>
+                        <br/>
                         {% endif %}
                     </div>
                     <!-- /.card -->

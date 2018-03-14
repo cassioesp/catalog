@@ -75,7 +75,7 @@ category2 = Category(name="Snowboarding")
 session.add(category2)
 session.commit()
 
-item1 = Item(user_id=1, title="Snowboard",
+item1 = Item(user_id=2, title="Snowboard",
              description="Lorem ipsum dolor sit amet,"
                          " consectetur adipisicing elit.",
              category=category2)
@@ -83,7 +83,7 @@ item1 = Item(user_id=1, title="Snowboard",
 session.add(item1)
 session.commit()
 
-item2 = Item(user_id=1, title="Goggles",
+item2 = Item(user_id=2, title="Goggles",
              description="Lorem ipsum dolor sit amet,"
                          " consectetur adipisicing elit.",
              category=category2)
