@@ -162,6 +162,7 @@ def showCategories():
     return render_template('catalog.html', categories=categories,
                            items=items)
 
+
 @app.route('/catalog/<string:category>/')
 @app.route('/catalog/<string:category>/items/')
 def showItems(category):
@@ -187,14 +188,22 @@ def newItem():
     if request.method == 'GET':
         return render_template('newItem.html', categories=categories)
     if request.method == 'POST':
-        newItem = Item(user_id=login_session['user_id'], title=request.form['text-input-title'],
+        newItem = Item(user_id=login_session['user_id'],
+                       title=request.form['text-input-title'],
                        description=request.form['text-input-description'],
                        cat_id=request.form['categorySelect'])
-        session.add(newItem)
-        session.commit()
-        flash('New Item %s Successfully Created' % newItem.title)
-        return render_template('catalog.html', categories=categories,
-                               items=items)
+        exists = session.query(Item).filter_by(
+            title=request.form['text-input-title']).scalar() is not None
+        if exists:
+            flash('This item already exists!')
+            return render_template('catalog.html',
+                                   categories=categories, items=items)
+        else:
+            session.add(newItem)
+            session.commit()
+            flash('New Item %s Successfully Created' % newItem.title)
+            return render_template('catalog.html', categories=categories,
+                                   items=items)
 
 
 @app.route('/catalog/<string:item_title>/edit', methods=['GET', 'POST'])

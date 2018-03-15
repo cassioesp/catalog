@@ -119,11 +119,6 @@ item1 = Item(user_id=1, title="Frisbee",
 session.add(item1)
 session.commit()
 
-item2 = Item(user_id=2, title="Goggles",
-             description="Lorem ipsum dolor sit amet,"
-                         " consectetur adipisicing elit.",
-             category=category2)
-
 category6 = Category(name="Rock Climbing")
 session.add(category6)
 session.commit()
