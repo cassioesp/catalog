@@ -1,5 +1,6 @@
 import random
 import string
+from functools import wraps
 
 import httplib2 as httplib2
 from flask import Flask, jsonify, render_template, \
@@ -19,11 +20,24 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-'''This method will connect the user to the Facebook Login.'''
+
+def login_required(function):
+    """Python decorator function to requires login."""
+
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+
+        if 'username' in login_session:
+            return function(*args, **kwargs)
+        else:
+            return redirect('/login')
+
+    return wrapper
 
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
+    """This method will connect the user to the Facebook Login."""
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -91,21 +105,17 @@ def fbconnect():
     return output
 
 
-'''This route drives to the Login page of our application.'''
-
-
 @app.route('/login')
 def showLogin():
+    """This route drives to the Login page of our application."""
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
 
-'''Create an new user.'''
-
-
 def createUser(login_session):
+    """Create an new user."""
     newUser = User(name=login_session['username'], email=login_session[
         'email'], picture=login_session['picture'])
     session.add(newUser)
@@ -114,18 +124,14 @@ def createUser(login_session):
     return user.id
 
 
-'''Returns the info of the user such as Name, Email and Profile Picture.'''
-
-
 def getUserInfo(user_id):
+    """Returns the info of the user such as Name, Email and Profile Picture."""
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
-'''Returns the ID of the user.'''
-
-
 def getUserID(email):
+    '''Returns the ID of the user.'''
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -133,11 +139,9 @@ def getUserID(email):
         return None
 
 
-'''This method deletes all the info related to the logged user.'''
-
-
 @app.route('/disconnect')
 def disconnect():
+    """This method deletes all the info related to the logged user."""
     if 'provider' in login_session:
         if login_session['provider'] == 'facebook':
             fbdisconnect()
@@ -153,11 +157,9 @@ def disconnect():
         return redirect(url_for('showCategories'))
 
 
-'''This method disconnect the user from facebook.'''
-
-
 @app.route('/fbdisconnect')
 def fbdisconnect():
+    """This method disconnect the user from facebook."""
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
@@ -168,33 +170,27 @@ def fbdisconnect():
     return "you have been logged out"
 
 
-'''This endpoint returns a json with all info necessary stored in our DB.'''
-
-
 @app.route('/catalog.json')
 def categoriesJSON():
+    """This endpoint returns a json with all info necessary stored in our DB."""
     categories = session.query(Category).all()
     return jsonify(category=[r.serialize for r in categories])
-
-
-'''Index page of Catalog application.'''
 
 
 @app.route('/')
 @app.route('/catalog/')
 def showCategories():
+    """Index page of Catalog application."""
     categories = session.query(Category)
     items = session.query(Item)
     return render_template('catalog.html', categories=categories,
                            items=items)
 
 
-'''This route drives to the items page by category.'''
-
-
 @app.route('/catalog/<string:category>/')
 @app.route('/catalog/<string:category>/items/')
 def showItems(category):
+    """This route drives to the items page by category."""
     categories = session.query(Category)
     category = session.query(Category).filter_by(name=category).one()
     items = session.query(Item).filter_by(category=category).all()
@@ -202,22 +198,17 @@ def showItems(category):
                            category=category, items=items)
 
 
-'''This routes drives to the item description page.'''
-
-
 @app.route('/catalog/<string:category>/<string:item_title>/')
 def showItemDescription(category, item_title):
+    """This routes drives to the item description page."""
     item = session.query(Item).filter_by(title=item_title).one()
     return render_template('itemDescription.html', item=item)
 
 
-'''This method will create a new item and put it on the DB.'''
-
-
 @app.route('/catalog/item/new', methods=['GET', 'POST'])
+@login_required
 def newItem():
-    if 'username' not in login_session:
-        return redirect('/login')
+    """This method will create a new item and put it on the DB."""
     categories = session.query(Category)
     items = session.query(Item)
     if request.method == 'GET':
@@ -241,13 +232,10 @@ def newItem():
                                    items=items)
 
 
-'''This method will edit an specific item giving it title.'''
-
-
 @app.route('/catalog/<string:item_title>/edit', methods=['GET', 'POST'])
+@login_required
 def editItem(item_title):
-    if 'username' not in login_session:
-        return redirect('/login')
+    """This method will edit an specific item giving it title."""
     categories = session.query(Category)
     items = session.query(Item)
     editedItem = session.query(Item).filter_by(title=item_title).one()
@@ -274,13 +262,10 @@ def editItem(item_title):
         return render_template('itemDescription.html', item=editedItem)
 
 
-'''This will delete a item from the DB.'''
-
-
 @app.route('/catalog/<string:item_title>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteItem(item_title):
-    if 'username' not in login_session:
-        return redirect('/login')
+    """This will delete a item from the DB."""
     categories = session.query(Category)
     items = session.query(Item)
     itemToDelete = session.query(Item).filter_by(title=item_title).one()
@@ -298,11 +283,9 @@ def deleteItem(item_title):
                                items=items)
 
 
-'''Show contact page.'''
-
-
 @app.route('/contact')
 def showContact():
+    """Show contact page."""
     return render_template('contact.html')
 
 
